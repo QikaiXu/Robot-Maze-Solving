@@ -75,6 +75,8 @@ class Robot(TorchRobot):
     def train(self):
         loss_list = []
         batch_size = len(self.memory)
+        
+        # 训练，直到能走出这个迷宫
         while True:
             loss = self._learn(batch=batch_size)
             loss_list.append(loss)
@@ -84,11 +86,7 @@ class Robot(TorchRobot):
                 a, r = self.test_update()
             #     print("action:", a, "reward:", r)
                 if r == self.maze.reward["destination"]:
-                    success = True
-                    break
-            if success:
-                break
-        return loss_list
+                    return loss_list
             
 
         
